@@ -1,5 +1,6 @@
 // CPP program for simpson's 1/3 rule
 #include <iostream>
+#include <iomanip>
 #include <math.h>
 using namespace std;
  
@@ -41,9 +42,15 @@ float simpsons_(float ll, float ul, int n)
 // Driver program
 int main()
 {
+	float result;
     float lower_limit = 0; // Lower limit
-    float upper_limit = 3.14; // Upper limit
+    float upper_limit = 3.14159265359; // Upper limit
     int n = 6; // Number of interval
-    cout << simpsons_(lower_limit, upper_limit, n);
+    cout << "Required Integrational Value: ";
+    result = simpsons_(lower_limit, upper_limit, n);
+    cout << result << endl;
+    cout << "Error = |2 - " << result << "| = "; 
+	cout << setprecision(5) << fixed;
+	cout << fabs(2 - result);
     return 0;
 }
