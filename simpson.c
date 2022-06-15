@@ -1,31 +1,49 @@
-#include <stdio.h>
+// CPP program for simpson's 1/3 rule
+#include <iostream>
 #include <math.h>
-
-#define f(x) sin(x)
-#define PI 3.14159
-
-int main() {
-	
-	int i, n = 16;
-	float a = 0, b = PI, s1, s2, s3, s;
-	float h = (b-a)/n;
-	s1 = f(a) + f(b);
-	s2 = 0;
-	
-	for(i=1;i<n-1;i=i+2){
-		s2 = s2 + 4*f(a + i*h);
-	}
-		
-	s3 = 0;
-	
-	for(i=2;i<n-2;i=i+2){
-		s3 = s3 + 2*f(a + i*h);
-	}
-	
-	s = (s1 + s2 + s3) * h/3;
-	
-	printf("Required Integrational Value = %f", s);
-	
-	return 0;
-	
+using namespace std;
+ 
+// Function to calculate f(x)
+float func(float x)
+{
+    return sin(x);
+}
+ 
+// Function for approximate integral
+float simpsons_(float ll, float ul, int n)
+{
+    // Calculating the value of h
+    float h = (ul - ll) / n;
+ 
+    // Array for storing value of x and f(x)
+    float x[10], fx[10];
+ 
+    // Calculating values of x and f(x)
+    for (int i = 0; i <= n; i++) {
+        x[i] = ll + i * h;
+        fx[i] = func(x[i]);
+    }
+ 
+    // Calculating result
+    float res = 0;
+    for (int i = 0; i <= n; i++) {
+        if (i == 0 || i == n)
+            res += fx[i];
+        else if (i % 2 != 0)
+            res += 4 * fx[i];
+        else
+            res += 2 * fx[i];
+    }
+    res = res * (h / 3);
+    return res;
+}
+ 
+// Driver program
+int main()
+{
+    float lower_limit = 0; // Lower limit
+    float upper_limit = 3.14; // Upper limit
+    int n = 6; // Number of interval
+    cout << simpsons_(lower_limit, upper_limit, n);
+    return 0;
 }
